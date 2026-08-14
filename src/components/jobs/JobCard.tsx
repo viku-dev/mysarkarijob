@@ -1,0 +1,5 @@
+import { Badge } from "@/components/common/Badge";
+import { ButtonLink } from "@/components/common/Button";
+import { Card } from "@/components/common/Card";
+export type JobCardData = { title: string; organization: string; vacancy?: string; qualification?: string; lastDate?: string; status: string; href: string; };
+export function JobCard({ job }: { job: JobCardData }) { return <Card><div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"><div><Badge>{job.status}</Badge><h3 className="mt-3 text-lg font-bold text-slate-950">{job.title}</h3><p className="text-sm text-slate-600">{job.organization}</p><dl className="mt-4 grid gap-2 text-sm sm:grid-cols-3"><div><dt className="font-semibold text-slate-700">Vacancy</dt><dd>{job.vacancy || "To be announced"}</dd></div><div><dt className="font-semibold text-slate-700">Qualification</dt><dd>{job.qualification || "See notification"}</dd></div><div><dt className="font-semibold text-slate-700">Last date</dt><dd>{job.lastDate || "To be announced"}</dd></div></dl></div><ButtonLink href={job.href} variant="outline">View Details</ButtonLink></div></Card>; }

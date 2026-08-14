@@ -1,0 +1,3 @@
+import { SearchBar } from "@/components/common/SearchBar";
+import { siteConfig } from "@/lib/config/site";
+export function Hero() { return <section className="rounded-3xl border border-blue-100 bg-blue-50 p-6 sm:p-10"><p className="text-sm font-bold uppercase tracking-wide text-blue-800">{siteConfig.tagline}</p><h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">Government Jobs, Exams & Results</h1><p className="mt-4 max-w-3xl text-base leading-7 text-slate-700">Find structured recruitment, examination, result, admit card, answer key, university and admission information. Always verify final details from official notifications and websites.</p><div className="mt-8 max-w-3xl"><SearchBar /></div></section>; }
