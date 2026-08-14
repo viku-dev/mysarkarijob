@@ -1,0 +1,2 @@
+import { Container } from "@/components/layout/Container";
+export default function TermsPage() { return <Container className="py-10"><h1 className="text-3xl font-bold">Terms</h1><p className="mt-4 max-w-3xl leading-7 text-slate-700">These placeholder terms will be updated before launch. Users should verify all recruitment, examination and admission information from official sources.</p></Container>; }
