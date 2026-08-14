@@ -2,6 +2,26 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn() { return request.auth != null; }
+    function adminPath() { return /databases/$(database)/documents/admins/$(request.auth.uid); }
+    function adminDoc() { return get(adminPath()); }
+    function isActiveAdmin() { return signedIn() && exists(adminPath()) && adminDoc().data.active == true; }
+    function role() { return adminDoc().data.role; }
+    function hasRole(roles) { return isActiveAdmin() && role() in roles; }
+    function isPublishedJob() { return resource.data.published == true && resource.data.status == 'PUBLISHED'; }
+    function isPublishedPublic() { return resource.data.published == true && (!('visibility' in resource.data) || resource.data.visibility == 'PUBLIC'); }
+
+    match /jobs/{jobId} {
+      allow read: if isPublishedJob() || isActiveAdmin();
+      allow create: if hasRole(['SUPER_ADMIN', 'EDITOR', 'CONTENT_MANAGER'])
+        && request.resource.data.status == 'DRAFT'
+        && request.resource.data.published == false;
+      allow update: if hasRole(['SUPER_ADMIN', 'EDITOR'])
+        || (hasRole(['CONTENT_MANAGER']) && request.resource.data.status in ['DRAFT', 'UNPUBLISHED'] && request.resource.data.published == false);
+      allow delete: if false;
+    }
+
+    match /{collection}/{document} {
+      allow read: if collection in ['exams', 'results', 'admitCards', 'answerKeys', 'universities', 'organizations', 'categories', 'states', 'siteSettings'] && isPublishedPublic();
     function adminDoc() { return get(/databases/$(database)/documents/admins/$(request.auth.uid)); }
     function isActiveAdmin() { return signedIn() && adminDoc().data.active == true; }
     function hasRole(roles) { return isActiveAdmin() && adminDoc().data.role in roles; }
@@ -15,12 +35,15 @@ service cloud.firestore {
     }
 
     match /admins/{adminId} {
+      allow read: if isActiveAdmin() && (request.auth.uid == adminId || hasRole(['SUPER_ADMIN']));
       allow read: if isActiveAdmin();
       allow write: if hasRole(['SUPER_ADMIN']);
     }
 
     match /auditLogs/{logId} {
       allow read: if isActiveAdmin();
+      allow create: if hasRole(['SUPER_ADMIN', 'EDITOR', 'CONTENT_MANAGER', 'VIEWER'])
+        && request.resource.data.adminId == request.auth.uid;
       allow create: if hasRole(['SUPER_ADMIN', 'EDITOR', 'CONTENT_MANAGER']);
       allow update, delete: if false;
     }

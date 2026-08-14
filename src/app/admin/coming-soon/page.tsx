@@ -1,0 +1,2 @@
+import { Card } from "@/components/common/Card";
+export default function AdminComingSoonPage() { return <Card><p className="text-sm font-semibold uppercase tracking-wide text-blue-700">Coming soon</p><h1 className="mt-1 text-2xl font-bold">Admin section planned</h1><p className="mt-2 text-sm text-slate-600">Only Jobs CMS functionality is implemented in Phase 3. This section will be implemented in later phases.</p></Card>; }
