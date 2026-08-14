@@ -15,4 +15,10 @@ export default function PublicJobPage() {
   if (job === undefined) return <Container className="py-8"><LoadingState /></Container>;
   if (job === null) notFound();
   return <Container className="py-8"><JobDetail job={job} /></Container>;
+import { notFound } from "next/navigation";
+
+export default function Page() {
+  // Dynamic job detail pages will be backed by Firestore in Phase 3. Until then,
+  // do not render placeholder recruitment facts for arbitrary slugs.
+  notFound();
 }
