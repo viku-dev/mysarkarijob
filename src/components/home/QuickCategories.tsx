@@ -1,0 +1,3 @@
+import Link from "next/link";
+const categories = ["SSC", "UPSC", "NTA", "NIELIT", "State Government Jobs", "Government Universities", "Private Universities", "Railway", "Banking", "Defence", "Teaching", "Other Jobs"];
+export function QuickCategories() { return <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{categories.map((category) => <Link key={category} href={`/search?category=${encodeURIComponent(category)}`} className="rounded-xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-800 hover:border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500">{category}</Link>)}</div>; }

@@ -1,0 +1,3 @@
+export function EmptyState({ title = "No notifications available yet.", description }: { title?: string; description?: string }) { return <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center"><p className="font-semibold text-slate-800">{title}</p>{description ? <p className="mt-1 text-sm text-slate-600">{description}</p> : null}</div>; }
+export function LoadingState() { return <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-600">Loading latest information…</div>; }
+export function ErrorState({ message = "Unable to load this section right now." }: { message?: string }) { return <div className="rounded-xl border border-red-200 bg-red-50 p-6 text-sm font-medium text-red-800">{message}</div>; }

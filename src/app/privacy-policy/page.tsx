@@ -1,0 +1,2 @@
+import { Container } from "@/components/layout/Container";
+export default function PrivacyPolicyPage() { return <Container className="py-10"><h1 className="text-3xl font-bold">Privacy Policy</h1><p className="mt-4 max-w-3xl leading-7 text-slate-700">This placeholder privacy policy will be replaced before production with details about data collection, Firebase services, analytics, contact forms and advertising configuration.</p></Container>; }

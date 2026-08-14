@@ -1,0 +1,3 @@
+import { cn } from "@/lib/utils/cn";
+export type AdPlacement = "top" | "content" | "sidebar" | "bottom";
+export function AdSlot({ placement, className }: { placement: AdPlacement; className?: string }) { const clientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID; return <aside aria-label={`${placement} ad placeholder`} className={cn("rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 text-center text-xs text-slate-500", className)}>{clientId ? "Ad slot configured. AdSense rendering will be enabled after approval." : `Development-only ${placement} ad placeholder. No ad is being served.`}</aside>; }
